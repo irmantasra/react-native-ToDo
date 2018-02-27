@@ -12,10 +12,11 @@ export default class TodoItem extends Component {
   }
 
   render() {
+    let itemCompleted = this.state.completed ? <Text>Done</Text> : <Text>Undone</Text>;
+
     return(
       <View>
-        <Text>{this.state.title}</Text>
-        <Text>{this.state.completed}</Text>
+        <Text>{this.state.title}  {itemCompleted}</Text>
       </View>
     );
   }
