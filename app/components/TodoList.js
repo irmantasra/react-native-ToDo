@@ -29,7 +29,6 @@ export default class TodoList extends Component {
   render(){
     return(
       <View>
-        <Text>{this.props.msg}</Text>
         <List
           dataSource={this.ds.cloneWithRows(this.state.items)}
           renderRow={ data =>
