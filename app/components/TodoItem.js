@@ -6,17 +6,16 @@ export default class TodoItem extends Component {
     super(props);
 
     this.state = {
-      completed: false,
+      completed: this.props.completed,
       title: this.props.title
     }
-
-
   }
 
   render() {
     return(
       <View>
-        <Text></Text>
+        <Text>{this.state.title}</Text>
+        <Text>{this.state.completed}</Text>
       </View>
     );
   }

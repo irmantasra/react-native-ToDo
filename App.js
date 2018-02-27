@@ -7,7 +7,7 @@ export default class MyApp extends Component {
   render(){
     return(
       <View>
-        <TodoList msg = "labas, pasauli!"/>
+        <TodoList msg = "todo list!"/>
       </View>  
     );
   }
