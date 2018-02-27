@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
-import { AppRegistry, View, ListView } from 'react-native';
+import { AppRegistry, View, ListView, TextInput } from 'react-native';
 import { Container, Content, List, ListItem, Text, Button, Icon } from 'native-base';
 import shortid from 'shortid';
 
 import TodoItem from './TodoItem';
-import todoitems from '../data/todoItems';
 
 export default class TodoList extends Component {
   constructor(props) {
@@ -13,7 +12,8 @@ export default class TodoList extends Component {
     this.ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
 
     this.state = {
-      items: todoitems
+      inputValue: "",
+      items: this.props.items
     };
   }
 
@@ -29,6 +29,13 @@ export default class TodoList extends Component {
   render(){
     return(
       <View>
+        <TextInput
+          placeholder="what needs to be done?"
+          onChange={e => this.setState({inputValue: e.nativeEvent.text})}
+          onSubmitEditing={ e => this.setState({ inputValue: "", items: [{id: shortid.generate(), title: this.state.inputValue, completed: false}, ...this.state.items ]})}
+          value={this.state.inputValue}
+        >
+        </TextInput>
         <List
           dataSource={this.ds.cloneWithRows(this.state.items)}
           renderRow={ data =>
@@ -42,7 +49,7 @@ export default class TodoList extends Component {
             </ListItem>
           }
           renderLeftHiddenRow={ data =>
-            <Button full onPress={() => alert(data.title)}>
+            <Button full onPress={() => alert(`${data.id} ${data.title} ${data.completed}`)}>
               <Icon active name="information-circle"/>
             </Button>
           }

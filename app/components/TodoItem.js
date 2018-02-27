@@ -16,7 +16,7 @@ export default class TodoItem extends Component {
 
     return(
       <View>
-        <Text>{this.state.title}  {itemCompleted}</Text>
+        <Text> {this.state.title}  {itemCompleted} </Text>
       </View>
     );
   }
