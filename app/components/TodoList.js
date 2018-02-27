@@ -1,33 +1,60 @@
 import React, { Component } from 'react';
-import { AppRegistry, View } from 'react-native';
-import { Container, Content, List, ListItem, Text } from 'native-base';
+import { AppRegistry, View, ListView } from 'react-native';
+import { Container, Content, List, ListItem, Text, Button, Icon } from 'native-base';
 import shortid from 'shortid';
 
 import TodoItem from './TodoItem';
 import todoitems from '../data/todoItems';
 
 export default class TodoList extends Component {
-  render(){
-    let todoItems = todoitems.map((todoitem, i) => {
-      return(
-        <ListItem key={shortid.generate()}>
-          <TodoItem
-            key={shortid.generate()}
-            index={i}
-            id={todoitem.id}
-            title={todoitem.title}
-            completed={todoitem.completed}
-          />
-        </ListItem>
-      );
-    });
+  constructor(props) {
+    super(props);
 
+    this.ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
+
+    this.state = {
+      items: todoitems
+    };
+  }
+
+  deleteItem(secId, rowId, rowMap) {
+    rowMap[`${secId}${rowId}`].props.closeRow();
+    const newData = [...this.state.items];
+    newData.splice(rowId, 1);
+    this.setState({
+      items: newData
+    });
+  }
+
+  render(){
     return(
       <View>
         <Text>{this.props.msg}</Text>
-        <List>
-          {todoItems}
-        </List>
+        <List
+          dataSource={this.ds.cloneWithRows(this.state.items)}
+          renderRow={ data =>
+            <ListItem key={shortid.generate()}>
+              <TodoItem
+                key={shortid.generate()}
+                id={data.id}
+                title={data.title}
+                completed={data.completed}
+              />
+            </ListItem>
+          }
+          renderLeftHiddenRow={ data =>
+            <Button full onPress={() => alert(data.title)}>
+              <Icon active name="information-circle"/>
+            </Button>
+          }
+          renderRightHiddenRow={(data, secId, rowId, rowMap) =>
+            <Button full danger onPress={ _ => this.deleteItem(secId, rowId, rowMap)}>
+              <Icon active name="trash" />
+            </Button>
+          }
+          leftOpenValue={75}
+          rightOpenValue={-75}
+        />
       </View>  
     );
   }
