@@ -43,7 +43,7 @@ export default class TodoList extends Component {
   }
 
   alertItemInfo(data) {
-    if (data.creationDate == true)
+    if (data.creationDate !== undefined)
       alert(`job: ${data.title}\ncompleted: ${data.completed}\ncreation date: ${data.creationDate.toString().slice(0 , 24)}`);
     else 
       alert(`job: ${data.title}\ncompleted: ${data.completed}`);
@@ -98,7 +98,7 @@ const styles = StyleSheet.create({
     textAlign: "left"
   },
   scroll: {
-    height: 550
+    height: 500
   }
 });
 
