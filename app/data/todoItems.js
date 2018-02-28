@@ -18,5 +18,25 @@ export default [
       id: -4,
       title: 'Take out a person',
       completed: false
+  },
+  {
+    id: -5,
+    title: 'Do homework',
+    completed: false
+  },
+  {
+      id: -6,
+      title: 'Have some workout',
+      completed: true
+  },
+  {
+      id: -7,
+      title: 'Practice guitar',
+      completed: true
+  },
+  {
+      id: -8,
+      title: 'Be cool',
+      completed: false
   }
 ];
