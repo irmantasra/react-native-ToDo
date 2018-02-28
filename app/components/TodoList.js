@@ -43,7 +43,10 @@ export default class TodoList extends Component {
   }
 
   alertItemInfo(data) {
-    alert(`job: ${data.title}\ncompleted: ${data.completed}\ncreation date: ${data.creationDate.toString().slice(0 , 24)}`);
+    if (data.creationDate == true)
+      alert(`job: ${data.title}\ncompleted: ${data.completed}\ncreation date: ${data.creationDate.toString().slice(0 , 24)}`);
+    else 
+      alert(`job: ${data.title}\ncompleted: ${data.completed}`);
   }
 
   render(){
@@ -56,7 +59,7 @@ export default class TodoList extends Component {
           onSubmitEditing={ e => this.createItem()}
           value={this.state.inputValue}
         />
-        <ScrollView style={{ height: 550}}>
+        <ScrollView style={styles.scroll}>
           <List
             dataSource={this.ds.cloneWithRows(this.state.items)}
             renderRow={ data =>
@@ -93,6 +96,9 @@ const styles = StyleSheet.create({
     paddingRight: 15,
     height: 60,
     textAlign: "left"
+  },
+  scroll: {
+    height: 550
   }
 });
 
