@@ -17,15 +17,13 @@ export default class TodoItem extends Component {
   }
 
   render() {
-    let itemStyle = { paddingLeft: 15,fontSize: 20, textAlign:"right"}
+    let itemStyle = { paddingLeft: 15, fontSize: 20, textAlign:"right"}
     let completedStyle = this.state.completed ? {...itemStyle, textDecorationLine: "line-through" } : itemStyle;
 
     return(
-      <ListItem onTouchEnd={e => this.editItemState()}>
+      <ListItem onPress={e => this.editItemState()}>
         <View>
-          <Text
-            style={completedStyle}
-          >
+          <Text style={completedStyle}>
             {this.state.title}
           </Text>
         </View>
